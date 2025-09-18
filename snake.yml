@@ -1,33 +1,43 @@
-name: Generate Snake Animation
+name: Generate Contribution Snake
 
 on:
   schedule:
-    # Runs every 12 hours
-    - cron: "0 */12 * * *"
-  workflow_dispatch: # Allow manual trigger
+    - cron: "0 */12 * * *"   # runs every 12 hours
+  workflow_dispatch:         # manual trigger
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write            # allow committing/pushing files
 
 jobs:
-  build:
+  generate-snake:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # Step 2: Generate Snake files
-      - name: Generate Snake
-        uses: Platane/snk@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
-          github_user_name: Ansh8905
+          fetch-depth: 0
+
+      - name: Generate SVGs (snk)
+        # svg-only is faster if you only need SVG
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+            dist/github-snake-neon.svg?palette=green-pink
+            dist/github-snake-rainbow.svg?palette=rainbow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 3: Push the generated files to 'output' branch
-      - name: Push Snake files
-        uses: crazy-max/ghaction-github-pages@v3.1.0
+      - name: Commit & push generated files to output branch
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          target_branch: output
-          build_dir: dist
+          commit_message: "chore: update generated snake images"
+          file_pattern: dist/**/*
+          branch: output
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
