@@ -46,14 +46,6 @@
 <!-- Streak: use the vercel demo endpoint (more reliable than some older demo hosts) -->
 ![GitHub Streak](https://streak-stats.vercel.app/?user=Ansh8905&theme=tokyonight)
 
----
-
-## 🐍 Contribution Graph (snake)
-<!-- the files are generated into the 'output' branch by the Action above -->
-![Snake Light](https://raw.githubusercontent.com/Ansh8905/Ansh8905/output/github-snake.svg#gh-light-mode-only)  
-![Snake Dark](https://raw.githubusercontent.com/Ansh8905/Ansh8905/output/github-snake-dark.svg#gh-dark-mode-only)  
-![Snake Neon](https://raw.githubusercontent.com/Ansh8905/Ansh8905/output/github-snake-neon.svg)  
-![Snake Rainbow](https://raw.githubusercontent.com/Ansh8905/Ansh8905/output/github-snake-rainbow.svg)
 
 ---
 
